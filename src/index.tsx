@@ -4,27 +4,22 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import reportWebVitals from './reportWebVitals';
-import './index.css';
+// import './index.css';
+import './index.scss';
 import App from './App';
 import { About } from './features/About/About';
-// import { Movies } from './features/Movies/Movies';
 import Movies from './features/Movies/Movies';
 import store from './store';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    // element: <App />,
     element: <Provider store={store}><App/></Provider>,
     children: [
       { path: "/about", element: <About /> },
       { path: "/movies", element: <Movies /> },
     ],
   },
-  // {
-  //   path: "/about",
-  //   element: <About />
-  // }
 ]);
 
 const root = ReactDOM.createRoot(
@@ -34,7 +29,6 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <RouterProvider router={router} />
-    {/* <App /> */}
   </React.StrictMode>
 );
 
