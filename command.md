@@ -16,4 +16,9 @@ npm i --save-dev sass
 
 - установка redux-thunk  
 npm i redux-thunk
-npm i @redux-devtools/extension
+npm i @redux-devtools/extension  
+
+- установка material-ui  
+npm i @mui/material @emotion/react @emotion/styled  
+npm i @fontsource/roboto   
+npm i @mui/icons-material  
