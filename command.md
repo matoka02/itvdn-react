@@ -11,3 +11,9 @@ npm i redux react-redux
 
 - установка sass  
 npm i --save-dev sass  
+
+## lesson-004  
+
+- установка redux-thunk  
+npm i redux-thunk
+npm i @redux-devtools/extension
