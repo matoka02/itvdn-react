@@ -1,15 +1,12 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
 
-// import logo from './logo.svg';
-// import './App.css';
 import styles from './App.module.scss';
 
 function App() {
   return (
     <div className={styles.root}>
       <header className={styles.header}>
-        {/* <img src={logo} className="App-logo" alt="logo" /> */}
         <img src="/cinema-ico.png" className={styles.logo} alt="logo" />
         <ul>
           <li>

@@ -4,11 +4,10 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import reportWebVitals from './reportWebVitals';
-// import './index.css';
 import './index.scss';
 import App from './App';
 import { About } from './features/About/About';
-import Movies from './features/Movies/Movies';
+import Movies, { MoviesFetch } from './features/Movies/Movies';
 import store from './store';
 
 const router = createBrowserRouter([
@@ -17,7 +16,8 @@ const router = createBrowserRouter([
     element: <Provider store={store}><App/></Provider>,
     children: [
       { path: "/about", element: <About /> },
-      { path: "/movies", element: <Movies /> },
+      // { path: "/movies", element: <Movies /> },
+      { path: "/movies", element: <MoviesFetch /> },
     ],
   },
 ]);
