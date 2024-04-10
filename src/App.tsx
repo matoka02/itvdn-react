@@ -4,8 +4,6 @@ import { AppBar, Link, CssBaseline, Toolbar, ThemeProvider, createTheme, Typogra
 import LiveTvOutlinedIcon from '@mui/icons-material/LiveTvOutlined';
 import { teal } from '@mui/material/colors';
 
-// import styles from './App.module.scss';
-
 const defaultTheme = createTheme({
   palette: {
     primary: teal,

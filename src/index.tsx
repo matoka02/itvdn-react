@@ -27,7 +27,6 @@ function AppEntrypoint() {
 const router = createBrowserRouter([
   {
     path: "/",
-    // element: <Provider store={store}><App/></Provider>,
     element: <AppEntrypoint />,
     children: [
       { path: "/", element: <Home /> },

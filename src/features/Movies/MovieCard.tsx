@@ -1,8 +1,6 @@
 import { Link as RouterLink } from 'react-router-dom';
 import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 
-// import styles from './MovieCard.module.scss';
-
 interface MovieCardProps {
   id: number,
   title: string,

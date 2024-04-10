@@ -1,20 +1,15 @@
-import { connect, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { Container, Grid, LinearProgress, Typography } from '@mui/material';
 
-import { Movie, fetchMovies } from '../../reducers/movies';
-import { RootState } from '../../store';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchMovies } from './moviesSlice';
 import { MovieCard } from './MovieCard';
-// import styles from './Movies.module.scss';
-import { useAppDispatch } from '../../hooks';
 
-interface MoviesProps {
-  movies: Movie[];
-  loading: boolean;
-}
-
-function Movies({ movies, loading }: MoviesProps) {
+function Movies() {
   const dispatch = useAppDispatch();
+  const movies = useAppSelector((state) => state.movies.top);
+  const loading = useAppSelector((state) => state.movies.loading);
+
   useEffect(() => {
     dispatch(fetchMovies());
   }, [dispatch]);
@@ -45,11 +40,4 @@ function Movies({ movies, loading }: MoviesProps) {
   );
 }
 
-const mapStateProps = (state: RootState) => ({
-  movies: state.movies.top,
-  loading: state.movies.loading,
-});
-
-const connector = connect(mapStateProps);
-
-export default connector(Movies);
+export default Movies;
