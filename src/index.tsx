@@ -15,11 +15,14 @@ import App from './App';
 import Home from './features/Home/Home';
 import About from './features/About/About';
 import Movies from './features/Movies/Movies';
+import { ErrorBoundary } from './ErrorBoundary';
 
 function AppEntrypoint() {
   return (
     <Provider store={store}>
-      <App />
+      <ErrorBoundary>
+        <App />
+      </ErrorBoundary>
     </Provider>
   );
 }
