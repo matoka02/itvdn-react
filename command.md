@@ -22,3 +22,9 @@ npm i @redux-devtools/extension
 npm i @mui/material @emotion/react @emotion/styled  
 npm i @fontsource/roboto   
 npm i @mui/icons-material  
+
+## lesson-005  
+
+- установка leaflet  
+npm i leaflet 
+npm i --save-dev @types/leaflet 
