@@ -12,7 +12,6 @@ function Movies() {
   const movies = useAppSelector((state) => state.movies.top);
   const loading = useAppSelector((state) => state.movies.loading);
 
-  // const loggedIn = true;
   const { user } = useContext(AuthContext);
   const loggedIn = user !== anonymousUser;
 

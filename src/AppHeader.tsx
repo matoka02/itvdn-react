@@ -35,15 +35,12 @@ interface AuthSectionProps {
 }
 
 function AuthSection({ onLogin, onLogout }: AuthSectionProps) {
-  // const loggedIn = true;
-  // const userName = 'Anastasiia';
 
   const auth = useContext(AuthContext);
   const loggedIn = auth.user !== anonymousUser;
 
   if (loggedIn) {
     return (<>
-      {/* <Typography>Hello, {userName}</Typography> */}
       <Typography>Hello, {auth.user.name}</Typography>
       <Button color='inherit' variant='outlined' onClick={onLogout}>Log out</Button>
     </>)

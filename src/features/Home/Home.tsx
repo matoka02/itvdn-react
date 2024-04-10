@@ -13,10 +13,6 @@ function Copyright() {
 }
 
 export default function Home() {
-  // const loggedIn = true;
-  // const userName = 'Anastasiia';
-  // const greeting = loggedIn?`${userName}, explore movies today with us!`:'Explore movies today with us!';
-
   const { user } = useContext(AuthContext);
   const loggedIn = user !== anonymousUser;
   const greeting = loggedIn ? `${user.name}, explore movies today with us!` : 'Explore movies today with us!';
@@ -34,7 +30,6 @@ export default function Home() {
           Welcome
         </Typography>
         <Typography variant='h5' align='center' color='text.secondary' paragraph>
-          {/* Explore movies today with us! */}
           {greeting}
         </Typography>
         <Stack
