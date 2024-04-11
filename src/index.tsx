@@ -15,11 +15,14 @@ import App from './App';
 import Home from './features/Home/Home';
 import About from './features/About/About';
 import Movies from './features/Movies/Movies';
+import { ErrorBoundary } from './ErrorBoundary';
 
 function AppEntrypoint() {
   return (
     <Provider store={store}>
-      <App />
+      <ErrorBoundary>
+        <App />
+      </ErrorBoundary>
     </Provider>
   );
 }
@@ -27,7 +30,6 @@ function AppEntrypoint() {
 const router = createBrowserRouter([
   {
     path: "/",
-    // element: <Provider store={store}><App/></Provider>,
     element: <AppEntrypoint />,
     children: [
       { path: "/", element: <Home /> },
