@@ -11,12 +11,11 @@ interface MovieCardProps {
   popularity: number;
   image?: string;
   enableUserActions?: boolean;
+  onAddToFavorite?(id: number): void;
 }
 
-function MovieCard({ id, title, overview, popularity, image = '/movie-thumb.png', enableUserActions = false }: MovieCardProps) {
-  console.count('MovieCard');     // 80
-  console.count('MovieCard');     // 40 - после применения memo
-
+function MovieCard({ id, title, overview, popularity, image = '/movie-thumb.png', enableUserActions = false, onAddToFavorite }: MovieCardProps) {
+  // console.count('MovieCard');
   return (
     <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <CardMedia component='div' sx={{ pt: '56.25%' }} image={image} />
@@ -28,7 +27,9 @@ function MovieCard({ id, title, overview, popularity, image = '/movie-thumb.png'
       <CardActions>
         <Button component={RouterLink} to={`/movies/${id}`} color='secondary'>Details</Button>
         {enableUserActions && <Tooltip title="Add to favorites">
-          <IconButton><FavoriteIcon /></IconButton>
+          <IconButton onClick={() => onAddToFavorite?.(id)}>
+            <FavoriteIcon />
+          </IconButton>
         </Tooltip>}
       </CardActions>
     </Card>

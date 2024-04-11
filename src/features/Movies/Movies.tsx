@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { Container, Grid, LinearProgress, Typography } from '@mui/material';
 
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -40,6 +40,15 @@ function Movies() {
     }
   }, [dispatch, entry?.isIntersecting, filters, hasMorePages]);
 
+  // const handleAddToFavorites = (id: number) => {
+  //   alert(`Not implemented! Action: ${user.name} is adding movie ${id} to favorites.`)
+  // };
+
+  const handleAddToFavorites = useCallback(
+    (id: number): void => alert(`Not implemented! Action: ${user.name} is adding movie ${id} to favorites.`),
+    [user.name]
+  );
+
   return (
     <Grid container spacing={2} sx={{ flexWrap: 'nowrap' }}>
       <Grid item xs='auto'>
@@ -63,6 +72,7 @@ function Movies() {
                   popularity={m.popularity}
                   image={m.image}
                   enableUserActions={loggedIn}
+                  onAddToFavorite={handleAddToFavorites}
                 />
               </Grid>))}
           </Grid>
