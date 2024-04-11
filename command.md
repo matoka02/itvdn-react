@@ -28,3 +28,8 @@ npm i @mui/icons-material
 - установка leaflet  
 npm i leaflet 
 npm i --save-dev @types/leaflet 
+
+## lesson-007  
+
+- установка react-hook-form    
+npm i react-hook-form 
