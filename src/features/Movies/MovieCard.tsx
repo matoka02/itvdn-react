@@ -1,6 +1,8 @@
+import { memo } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Button, Card, CardActions, CardContent, CardMedia, IconButton, Tooltip, Typography } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+
 
 interface MovieCardProps {
   id: number;
@@ -11,7 +13,10 @@ interface MovieCardProps {
   enableUserActions?: boolean;
 }
 
-export function MovieCard({ id, title, overview, popularity, image = '/movie-thumb.png', enableUserActions = false }: MovieCardProps) {
+function MovieCard({ id, title, overview, popularity, image = '/movie-thumb.png', enableUserActions = false }: MovieCardProps) {
+  console.count('MovieCard');     // 80
+  console.count('MovieCard');     // 40 - после применения memo
+
   return (
     <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <CardMedia component='div' sx={{ pt: '56.25%' }} image={image} />
@@ -29,3 +34,5 @@ export function MovieCard({ id, title, overview, popularity, image = '/movie-thu
     </Card>
   )
 }
+
+export default memo(MovieCard);

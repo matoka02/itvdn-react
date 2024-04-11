@@ -54,7 +54,6 @@ export function resetMovies() {
 export function fetchNextPage(filters: MoviesFilters = {}): AppThunk<Promise<void>> {
   return async (dispatch, getState) => {
     const nextPage = getState().movies.page + 1;
-    // dispatch(fetchPage(nextPage));
     dispatch(fetchPage(nextPage, filters));
   }
 }
@@ -64,7 +63,6 @@ function fetchPage(page: number, filters: MoviesFilters): AppThunk<Promise<void>
     dispatch(loading());
 
     const configuration = await client.getConfiguration(); // todo: single load per app
-    // const nowPlaying = await client.getNowPlaying(page);
     const moviesResponse = await client.getMovies(page, filters);
     const imageSize = 'w780';
 

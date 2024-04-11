@@ -17,23 +17,10 @@ import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import { KeywordItem, client } from '../../api/tmdb';
 import { useAppSelector } from '../../hooks';
 
-// const keywordsOptions: KeywordItem[] = [
-//   { id: 1, name: 'brave' },
-//   { id: 2, name: 'love' },
-//   { id: 3, name: 'courage' },
-// ];
-
-// const selected = [keywordsOptions[1], keywordsOptions[2]];
-
 export interface Filters {
   keywords: KeywordItem[];
   genres: number[];
 }
-
-// interface KeywordItem {
-//   id: number;
-//   name: string;
-// }
 
 interface MoviesFilterProps {
   onApply(filters: Filters): void;
@@ -80,13 +67,11 @@ export function MoviesFilter({ onApply }: MoviesFilterProps) {
               <Autocomplete
                 multiple
                 disablePortal
-                // loading={false}
                 loading={keywordsLoading}
                 options={keywordsOptions}
                 filterOptions={(x) => x}
                 getOptionLabel={(option) => option.name}
                 onChange={(_, value) => onChange(value)}
-                // value={selected}
                 value={value}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
                 onInputChange={(_, value) => fetchKeywords(value)}
