@@ -17,23 +17,10 @@ import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import { KeywordItem, client } from '../../api/tmdb';
 import { useAppSelector } from '../../hooks';
 
-// const keywordsOptions: KeywordItem[] = [
-//   { id: 1, name: 'brave' },
-//   { id: 2, name: 'love' },
-//   { id: 3, name: 'courage' },
-// ];
-
-// const selected = [keywordsOptions[1], keywordsOptions[2]];
-
 export interface Filters {
   keywords: KeywordItem[];
   genres: number[];
 }
-
-// interface KeywordItem {
-//   id: number;
-//   name: string;
-// }
 
 interface MoviesFilterProps {
   onApply(filters: Filters): void;
@@ -52,22 +39,35 @@ export function MoviesFilter({ onApply }: MoviesFilterProps) {
 
   const genres = useAppSelector((state) => state.movies.genres);
 
-  const fetchKeywords = useMemo(
-    () =>
-      debounce(async (query) => {
-        if (query) {
-          setKeywordsLoading(true);
+  // const fetchKeywords = useMemo(
+  //   () =>
+  //     debounce(async (query) => {
+  //       if (query) {
+  //         setKeywordsLoading(true);
 
-          const options = await client.getKeywords(query);
+  //         const options = await client.getKeywords(query);
 
-          setKeywordsLoading(false);
-          setKeywordsOptions(options);
-        } else {
-          setKeywordsOptions([]);
-        }
-      }, 1000),
-    []
-  );
+  //         setKeywordsLoading(false);
+  //         setKeywordsOptions(options);
+  //       } else {
+  //         setKeywordsOptions([]);
+  //       }
+  //     }, 1000),
+  //   []
+  // );
+
+  const fetchKeywordsOptions = async (query: string) => {
+    if (query) {
+      setKeywordsLoading(true);
+      const options = await client.getKeywords(query);
+      setKeywordsLoading(false);
+      setKeywordsOptions(options);
+    } else {
+      setKeywordsOptions([]);
+    }
+  };
+
+  const debouncedFetchKeywordsOptions = useMemo(() => debounce(fetchKeywordsOptions, 1000), [] );
 
   return (
     <Paper sx={{ m: 2, p: 0.5 }}>
@@ -80,16 +80,15 @@ export function MoviesFilter({ onApply }: MoviesFilterProps) {
               <Autocomplete
                 multiple
                 disablePortal
-                // loading={false}
                 loading={keywordsLoading}
                 options={keywordsOptions}
                 filterOptions={(x) => x}
                 getOptionLabel={(option) => option.name}
                 onChange={(_, value) => onChange(value)}
-                // value={selected}
                 value={value}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
-                onInputChange={(_, value) => fetchKeywords(value)}
+                // onInputChange={(_, value) => fetchKeywords(value)}
+                onInputChange={(_, value) => debouncedFetchKeywordsOptions(value)}
                 renderInput={(params) => <TextField {...params} label='Keywords' />}
               />
             )}

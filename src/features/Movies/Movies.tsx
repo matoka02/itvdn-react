@@ -1,11 +1,12 @@
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { Container, Grid, LinearProgress, Typography } from '@mui/material';
 
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 import { AuthContext, anonymousUser } from '../../AuthContext';
 import { fetchNextPage, resetMovies } from './moviesSlice';
-import { MovieCard } from './MovieCard';
+// import { MovieCard } from './MovieCard';
+import MovieCard from './MovieCard';
 import { Filters, MoviesFilter } from './MoviesFilter';
 
 
@@ -28,7 +29,6 @@ function Movies() {
 
   useEffect(() => {
     if (entry?.isIntersecting && hasMorePages) {
-      // dispatch(fetchNextPage());
       const moviesFilters = filters
         ? {
           keywords: filters?.keywords.map((k) => k.id),
@@ -40,10 +40,18 @@ function Movies() {
     }
   }, [dispatch, entry?.isIntersecting, filters, hasMorePages]);
 
+  // const handleAddToFavorites = (id: number) => {
+  //   alert(`Not implemented! Action: ${user.name} is adding movie ${id} to favorites.`)
+  // };
+
+  const handleAddToFavorites = useCallback(
+    (id: number): void => alert(`Not implemented! Action: ${user.name} is adding movie ${id} to favorites.`),
+    [user.name]
+  );
+
   return (
     <Grid container spacing={2} sx={{ flexWrap: 'nowrap' }}>
       <Grid item xs='auto'>
-        {/* <MoviesFilter onApply={(filters)=>{alert(JSON.stringify(filters))}}/> */}
         <MoviesFilter onApply={(filters) => {
           dispatch(resetMovies());
           setFilters(filters);
@@ -51,11 +59,11 @@ function Movies() {
       </Grid>
       <Grid item xs={12}>
         <Container sx={{ py: 8 }} maxWidth='lg'>
-          {/* <Typography variant='h4' align='center' gutterBottom>Now playing</Typography> */}
           {!loading && !movies.length && <Typography variant='h6'>No movies were found that match your query.</Typography>}
           <Grid container spacing={4}>
             {movies.map((m, i) => (
-              <Grid item key={m.id} xs={12} sm={6} md={4}>
+              // <Grid item key={m.id} xs={12} sm={6} md={4}>
+              <Grid item key={`${m.id}-${i}`} xs={12} sm={6} md={4}>
                 <MovieCard
                   key={m.id}
                   id={m.id}
@@ -64,6 +72,7 @@ function Movies() {
                   popularity={m.popularity}
                   image={m.image}
                   enableUserActions={loggedIn}
+                  onAddToFavorite={handleAddToFavorites}
                 />
               </Grid>))}
           </Grid>
