@@ -15,7 +15,7 @@ interface MovieCardProps {
 }
 
 function MovieCard({ id, title, overview, popularity, image = '/movie-thumb.png', enableUserActions = false, onAddToFavorite }: MovieCardProps) {
-  // console.count('MovieCard');
+  console.count('MovieCard');
   return (
     <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <CardMedia component='div' sx={{ pt: '56.25%' }} image={image} />
