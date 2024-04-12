@@ -61,6 +61,7 @@ export const tmdbApi = createApi({
     getConfiguration: builder.query<Configuration, void>({
       query: () => `/configuration`,
     }),
+
     getMovies: builder.query<MoviesState, MoviesQuery>({
       query(moviesQuery) {
         const params = new URLSearchParams({
@@ -86,11 +87,29 @@ export const tmdbApi = createApi({
           hasMorePages: arg.page < response.total_pages,
         };
       },
+      serializeQueryArgs({ endpointName }) {
+        return endpointName;
+      },
+      merge(currentCacheData, responseData) {
+        if (responseData.lastPage === 1) {
+          currentCacheData.results = responseData.results;
+        } else {
+          currentCacheData.results.push(...responseData.results);
+        }
+
+        currentCacheData.hasMorePages = responseData.hasMorePages;
+        currentCacheData.lastPage = responseData.lastPage;
+      },
+      forceRefetch({ currentArg, previousArg }) {
+        return currentArg !== previousArg;
+      },
     }),
+
     getKeywords: builder.query<KeywordItem[], string>({
       query: (query) => `/search/keyword?query=${query}`,
       transformResponse: (response: PageResponse<KeywordItem>) => response.results,
     }),
+    
     getGenres: builder.query<Genre[], void>({
       query: () => '/genre/movie/list',
       transformResponse: (response: { genres: Genre[] }) => response.genres,

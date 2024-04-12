@@ -15,9 +15,7 @@ import {
 } from '@mui/material';
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 
-// import { KeywordItem, client } from '../../api/tmdb';
 import { KeywordItem, useGetGenresQuery, useGetKeywordsQuery } from '../../services/tmdb';
-// import { useAppSelector } from '../../hooks';
 
 export interface Filters {
   keywords: KeywordItem[];
@@ -36,27 +34,10 @@ export function MoviesFilter({ onApply }: MoviesFilterProps) {
     },
   });
 
-  // const [keywordsLoading, setKeywordsLoading] = useState(false);
-  // const [keywordsOptions, setKeywordsOptions] = useState<KeywordItem[]>([]);
-
   const [keywordsQuery, setKeywordsQuery] = useState<string>("");
   const { data: keywordsOptions = [], isLoading: keywordsLoading } = useGetKeywordsQuery(keywordsQuery, { skip: !keywordsQuery });
   const { data: genres = [], isLoading: genresLoading } = useGetGenresQuery();
 
-  // const genres = useAppSelector((state) => state.movies.genres);
-
-  // const fetchKeywordsOptions = async (query: string) => {
-  //   if (query) {
-  //     setKeywordsLoading(true);
-  //     const options = await client.getKeywords(query);
-  //     setKeywordsLoading(false);
-  //     setKeywordsOptions(options);
-  //   } else {
-  //     setKeywordsOptions([]);
-  //   }
-  // };
-
-  // const debouncedFetchKeywordsOptions = useMemo(() => debounce(fetchKeywordsOptions, 1000), [] );
   const debouncedFetchKeywordsOptions = useMemo(
     () =>
       debounce((query: string) => {
@@ -91,37 +72,6 @@ export function MoviesFilter({ onApply }: MoviesFilterProps) {
         </FormControl>
 
         <FormControl sx={{ m: 2, display: 'block' }} component='fieldset' variant='standard'>
-          {/* <FormLabel component='legend'>Genres</FormLabel>
-          <FormGroup sx={{ maxHeight: 500 }}>
-            <Controller
-              name='genres'
-              control={control}
-              render={({ field }) => (
-                <>
-                  {genres?.map((genre) => (
-                    <FormControlLabel
-                      key={genre.id}
-                      control={
-                        <Checkbox
-                          value={genre.id}
-                          checked={field.value.includes(genre.id)}
-                          onChange={(event, checked) => {
-                            const valueNumber = Number(event.target.value);
-                            if (checked) {
-                              field.onChange([...field.value, valueNumber]);
-                            } else {
-                              field.onChange(field.value.filter((value) => value !== valueNumber));
-                            }
-                          }}
-                        />
-                      }
-                      label={genre.name}
-                    />
-                  ))}
-                </>
-              )}
-            />
-          </FormGroup> */}
 
           {genresLoading ? (
             <Skeleton width={300} height={480} />
