@@ -15,6 +15,7 @@ import './index.scss';
 import App from './App';
 import Home from './features/Home/Home';
 import About from './features/About/About';
+import { Extra } from './features/Extra/Extra';
 import { ErrorBoundary } from './ErrorBoundary';
 
 
@@ -37,6 +38,7 @@ const router = createBrowserRouter([
     children: [
       { path: '/', element: <Home /> },
       { path: 'about', element: <About /> },
+      { path: 'extra', element: <Extra /> },
       {
         path: 'movies', element: (
           <Suspense fallback={<LinearProgress sx={{ mt: 1 }} />}>
