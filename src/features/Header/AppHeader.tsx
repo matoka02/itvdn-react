@@ -18,6 +18,7 @@ export function AppHeader() {
             <HeaderLink to='/'>Home</HeaderLink>
             <HeaderLink to='/about'>About</HeaderLink>
             <HeaderLink to='/extra'>Extra</HeaderLink>
+            {isAuthenticated && <HeaderLink to='/protected'>Protected</HeaderLink>}
             <HeaderLink to='/movies'>Movies</HeaderLink>
           </nav>
         </Box>

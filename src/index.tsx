@@ -12,15 +12,16 @@ import { LinearProgress } from '@mui/material';
 import reportWebVitals from './reportWebVitals';
 import store from './store';
 import './index.scss';
+import { StatefulAuthProvider } from './auth/StatefulAuthProvider';
+import { AuthCallback } from './auth/AuthCallback';
+import { Profile } from './features/Profile/Profile';
+import { AuthenticatedGuard } from './auth/AuthenticatedGuard';
+import { Protected } from './features/Protected/Protected';
 import App from './App';
 import Home from './features/Home/Home';
 import About from './features/About/About';
 import { Extra } from './features/Extra/Extra';
 import { ErrorBoundary } from './ErrorBoundary';
-import { StatefulAuthProvider } from './auth/StatefulAuthProvider';
-import { AuthCallback } from './auth/AuthCallback';
-import { Profile } from './features/Profile/Profile';
-import { AuthenticatedGuard } from './auth/AuthenticatedGuard';
 
 
 const Movies = lazy(() => import('./features/Movies/Movies'));
@@ -54,6 +55,7 @@ const router = createBrowserRouter([
       },
       { path: 'callback', element: <AuthCallback /> },
       { path: 'profile', element: <AuthenticatedGuard component={Profile} /> },
+      { path: 'protected', element: <AuthenticatedGuard component={Protected} /> },
     ],
   },
 ]);

@@ -8,7 +8,7 @@ const authConfig = {
   clientId: configuration.auth0ClientId!,
   authorizationParams: {
     redirect_uri: configuration.auth0RedirectUri,
-    // audience: configuration.audience,
+    audience: configuration.audience,
   },
 };
 
@@ -24,9 +24,15 @@ export function StatefulAuthProvider({ children }: StatefulAuthProviderProps) {
   };
 
   return (
+    // <Auth0Provider
+    //   {...authConfig}
+    //   cacheLocation='localstorage'
+    //   onRedirectCallback={onRedirectCallback}>
+    //   {children}
+    // </Auth0Provider>
     <Auth0Provider
       {...authConfig}
-      // useRefreshTokens
+      useRefreshTokens
       cacheLocation='localstorage'
       onRedirectCallback={onRedirectCallback}>
       {children}
