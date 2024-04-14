@@ -19,6 +19,8 @@ import { Extra } from './features/Extra/Extra';
 import { ErrorBoundary } from './ErrorBoundary';
 import { StatefulAuthProvider } from './auth/StatefulAuthProvider';
 import { AuthCallback } from './auth/AuthCallback';
+import { Profile } from './features/Profile/Profile';
+import { AuthenticatedGuard } from './auth/AuthenticatedGuard';
 
 
 const Movies = lazy(() => import('./features/Movies/Movies'));
@@ -50,7 +52,8 @@ const router = createBrowserRouter([
           </Suspense>
         )
       },
-      { path: 'callback', element: <AuthCallback/> },
+      { path: 'callback', element: <AuthCallback /> },
+      { path: 'profile', element: <AuthenticatedGuard component={Profile} /> },
     ],
   },
 ]);
