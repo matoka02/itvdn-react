@@ -17,17 +17,23 @@ import Home from './features/Home/Home';
 import About from './features/About/About';
 import { Extra } from './features/Extra/Extra';
 import { ErrorBoundary } from './ErrorBoundary';
+import { StatefulAuthProvider } from './auth/StatefulAuthProvider';
+import { AuthCallback } from './auth/AuthCallback';
+import { Profile } from './features/Profile/Profile';
+import { AuthenticatedGuard } from './auth/AuthenticatedGuard';
 
 
 const Movies = lazy(() => import('./features/Movies/Movies'));
 
 function AppEntrypoint() {
   return (
-    <Provider store={store}>
-      <ErrorBoundary>
-        <App />
-      </ErrorBoundary>
-    </Provider>
+    <StatefulAuthProvider>
+      <Provider store={store}>
+        <ErrorBoundary>
+          <App />
+        </ErrorBoundary>
+      </Provider>
+    </StatefulAuthProvider>
   );
 }
 
@@ -45,7 +51,9 @@ const router = createBrowserRouter([
             <Movies />
           </Suspense>
         )
-      }
+      },
+      { path: 'callback', element: <AuthCallback /> },
+      { path: 'profile', element: <AuthenticatedGuard component={Profile} /> },
     ],
   },
 ]);

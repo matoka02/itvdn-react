@@ -39,7 +39,12 @@ npm i react-hook-form
 - удаление redux и установка redux-toolkit 
 npm uninstall redux && npm i @reduxjs/toolkit  
 
-## lesson-013  
+## lesson-012  
 
 - установка graphql 
-npm i graphql @rtk-query/graphql-request-base-query   
+npm i graphql @rtk-query/graphql-request-base-query  
+
+## lesson-013  
+
+- установка auth0 
+npm i @auth0/auth0-react   

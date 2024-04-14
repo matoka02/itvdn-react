@@ -1,8 +1,9 @@
-import { useContext } from 'react';
+// import { useContext } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Box, Button, Container, Stack, Typography } from '@mui/material';
+import { useAuth0 } from '@auth0/auth0-react';
 
-import { AuthContext, anonymousUser } from '../../AuthContext';
+// import { AuthContext, anonymousUser } from '../../AuthContext';
 
 function Copyright() {
   return (
@@ -13,10 +14,13 @@ function Copyright() {
 }
 
 export default function Home() {
-  const { user } = useContext(AuthContext);
-  const loggedIn = user !== anonymousUser;
-  const greeting = loggedIn ? `${user.name}, explore movies today with us!` : 'Explore movies today with us!';
+  // const { user } = useContext(AuthContext);
+  // const loggedIn = user !== anonymousUser;
+  // const greeting = loggedIn ? `${user.name}, explore movies today with us!` : 'Explore movies today with us!';
+  const { isAuthenticated, user } = useAuth0();
+  const greeting = 'Explore movies today with us!';
 
+  
   return (
     <Box sx={{ bgcolor: 'background.paper', pt: 8, pb: 8 }}>
       <Container maxWidth='sm'>
@@ -30,7 +34,8 @@ export default function Home() {
           Welcome
         </Typography>
         <Typography variant='h5' align='center' color='text.secondary' paragraph>
-          {greeting}
+          {/* {greeting} */}
+          {isAuthenticated ? `${user?.name}, ${greeting.toLowerCase()}` : greeting}
         </Typography>
         <Stack
           sx={{ pt: 4 }}

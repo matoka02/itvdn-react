@@ -1,11 +1,14 @@
-import { useCallback, useContext, useState } from 'react';
+// import { useCallback, useContext, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Container, Grid, LinearProgress, Typography } from '@mui/material';
+import { useAuth0 } from '@auth0/auth0-react';
 
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
-import { AuthContext, anonymousUser } from '../../AuthContext';
+// import { AuthContext, anonymousUser } from '../../AuthContext';
 import { useGetMoviesQuery, useGetConfigurationQuery, MoviesQuery } from '../../services/tmdb';
 import MovieCard from './MovieCard';
 import { MoviesFilter } from './MoviesFilter';
+
 
 const initialQuery: MoviesQuery = {
   page: 1,
@@ -13,6 +16,7 @@ const initialQuery: MoviesQuery = {
 };
 
 function Movies() {
+  const { isAuthenticated, user } = useAuth0();
   const [query, setQuery] = useState<MoviesQuery>(initialQuery);
 
   const { data: configuration } = useGetConfigurationQuery();
@@ -24,8 +28,8 @@ function Movies() {
     return imagePath && configuration ? `${configuration.images.base_url}w780${imagePath}` : undefined;
   }
 
-  const { user } = useContext(AuthContext);
-  const loggedIn = user !== anonymousUser;
+  // const { user } = useContext(AuthContext);
+  // const loggedIn = user !== anonymousUser;
 
   const onIntersect = useCallback(() => {
     if (hasMorePages) {
@@ -35,9 +39,13 @@ function Movies() {
 
   const [targetRef] = useIntersectionObserver({ onIntersect });
 
+  // const handleAddToFavorites = useCallback(
+  //   (id: number): void => alert(`Not implemented! Action: ${user.name} is adding movie ${id} to favorites.`),
+  //   [user.name]
+  // );
   const handleAddToFavorites = useCallback(
-    (id: number): void => alert(`Not implemented! Action: ${user.name} is adding movie ${id} to favorites.`),
-    [user.name]
+    (id: number): void => alert(`Not implemented! Action: ${user?.name} is adding movie ${id} to favorites.`),
+    [user?.name]
   );
 
   return (
@@ -68,7 +76,8 @@ function Movies() {
                   overview={m.overview}
                   popularity={m.popularity}
                   image={formatImageUrl(m.backdrop_path)}
-                  enableUserActions={loggedIn}
+                  // enableUserActions={loggedIn}
+                  enableUserActions={isAuthenticated}
                   onAddToFavorite={handleAddToFavorites}
                 />
               </Grid>))}
