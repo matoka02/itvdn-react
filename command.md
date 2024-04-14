@@ -48,3 +48,13 @@ npm i graphql @rtk-query/graphql-request-base-query
 
 - установка auth0 
 npm i @auth0/auth0-react   
+
+## lesson-015  
+
+- обновление всех пакетов
+npm outdated  
+npm update   
+- установка msw  
+npm i msw  
+- установка undici  
+npm i undici  
